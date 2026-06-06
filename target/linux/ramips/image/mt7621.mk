@@ -537,6 +537,17 @@ define Device/dlink_dir-882-r1
 endef
 TARGET_DEVICES += dlink_dir-882-r1
 
+define Device/d-team_newifi-d2
+  $(Device/uimage-lzma-loader)
+  IMAGE_SIZE := 32448k
+  DEVICE_VENDOR := Newifi
+  DEVICE_MODEL := D2
+  DEVICE_COMPAT_VERSION := 1.1
+  DEVICE_PACKAGES := kmod-mt7603e kmod-mt76x2e kmod-usb3 \
+	kmod-usb-ledtrig-usbport luci-app-mtwifi -wpad-openssl
+endef
+TARGET_DEVICES += d-team_newifi-d2
+
 define Device/d-team_pbr-m1
   $(Device/dsa-migration)
   IMAGE_SIZE := 32448k
@@ -720,9 +731,9 @@ define Device/glinet_gl-mt1300
   IMAGE_SIZE := 32448k
   DEVICE_VENDOR := GL.iNet
   DEVICE_MODEL := GL-MT1300
-  DEVICE_PACKAGES := kmod-mt7615d_dbdc kmod-usb3 -luci-newapi -wpad-openssl
+  DEVICE_PACKAGES := kmod-mt7615-firmware kmod-usb3 -uboot-envtools
 endef
-TARGET_DEVICES += glinet_gl-mt1300
+#TARGET_DEVICES += glinet_gl-mt1300
 
 define Device/gnubee_gb-pc1
   $(Device/dsa-migration)
@@ -790,6 +801,15 @@ define Device/hiwifi_hc5962
   DEVICE_PACKAGES := kmod-mt7603 kmod-mt76x2 kmod-usb3
 endef
 TARGET_DEVICES += hiwifi_hc5962
+
+define Device/ht-jsh_0211
+  $(Device/dsa-migration)
+  IMAGE_SIZE := 16064k
+  DEVICE_VENDOR := HT-JSH
+  DEVICE_MODEL := 0211
+  DEVICE_PACKAGES := kmod-mt7603
+endef
+TARGET_DEVICES += ht-jsh_0211
 
 define Device/iodata_wn-ax1167gr
   $(Device/dsa-migration)
@@ -967,6 +987,18 @@ define Device/jdcloud_re-sp-01b
 	kmod-mt7615-firmware kmod-sdhci-mt7620 kmod-usb3
 endef
 TARGET_DEVICES += jdcloud_re-sp-01b
+
+define Device/lenovo_newifi-d1
+  $(Device/dsa-migration)
+  $(Device/uimage-lzma-loader)
+  IMAGE_SIZE := 32448k
+  DEVICE_VENDOR := Newifi
+  DEVICE_MODEL := D1
+  DEVICE_PACKAGES := kmod-mt7603 kmod-mt76x2 kmod-usb3 kmod-sdhci-mt7620 \
+	kmod-usb-ledtrig-usbport
+  SUPPORTED_DEVICES += newifi-d1
+endef
+TARGET_DEVICES += lenovo_newifi-d1
 
 define Device/linksys_e5600
   $(Device/dsa-migration)
@@ -1316,36 +1348,13 @@ define Device/netis_wf2881
 endef
 TARGET_DEVICES += netis_wf2881
 
-define Device/lenovo_newifi-d1
-  $(Device/dsa-migration)
-  $(Device/uimage-lzma-loader)
-  IMAGE_SIZE := 32448k
-  DEVICE_VENDOR := Newifi
-  DEVICE_MODEL := D1
-  DEVICE_PACKAGES := kmod-mt7603 kmod-mt76x2 kmod-usb3 kmod-sdhci-mt7620 \
-	kmod-usb-ledtrig-usbport
-  SUPPORTED_DEVICES += newifi-d1
-endef
-TARGET_DEVICES += lenovo_newifi-d1
-
-define Device/d-team_newifi-d2
-  $(Device/uimage-lzma-loader)
-  IMAGE_SIZE := 32448k
-  DEVICE_VENDOR := Newifi
-  DEVICE_MODEL := D2
-  DEVICE_COMPAT_VERSION := 1.1
-  DEVICE_PACKAGES := kmod-mt7603e kmod-mt76x2e kmod-usb3 \
-	kmod-usb-ledtrig-usbport luci-app-mtwifi -wpad-openssl
-endef
-TARGET_DEVICES += d-team_newifi-d2
-
 define Device/oraybox_x3a
   $(Device/dsa-migration)
   $(Device/uimage-lzma-loader)
   IMAGE_SIZE := 15360k
   DEVICE_VENDOR := OrayBox
   DEVICE_MODEL := X3A
-  DEVICE_PACKAGES := -luci-newapi -wpad-openssl kmod-mt7615d_dbdc wireless-tools
+  DEVICE_PACKAGES := kmod-mt7615-firmware
 endef
 TARGET_DEVICES += oraybox_x3a
 
@@ -1964,7 +1973,7 @@ define Device/zte_e8820s
   PAGESIZE := 2048
   KERNEL_SIZE := 4096k
   UBINIZE_OPTS := -E 5
-  IMAGE_SIZE := 32768k
+  IMAGE_SIZE := 129280k
   IMAGES += factory.bin
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
   IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
@@ -1972,6 +1981,6 @@ define Device/zte_e8820s
   DEVICE_VENDOR := ZTE
   DEVICE_MODEL := E8820S
   DEVICE_PACKAGES := kmod-mt7603e kmod-mt76x2e kmod-usb3 \
-	kmod-usb-ledtrig-usbport luci-app-mtwifi
+	kmod-usb-ledtrig-usbport luci-app-mtwifi -wpad-openssl
 endef
 TARGET_DEVICES += zte_e8820s
